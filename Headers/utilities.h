@@ -3,7 +3,9 @@
 #ifndef UTILITIES_HEADER
 #define UTILITIES_HEADER
 
-void StackCtor(struct Stack_t* ptr, int amount);
-void StackPush(struct Stack_t* ptr, StackElem elem);
+int StackCtor(struct Stack_t* stk, int amount);
+int StackDtor(struct Stack_t* stk);
+int StackPush(struct Stack_t* stk, StackElem elem);
+StackElem StackPop(struct Stack_t* stk);
 
 #endif

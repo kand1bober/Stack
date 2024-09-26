@@ -15,4 +15,6 @@ struct Stack_t
         int capacity;
     };
 
+const int SIZE = 50;
+
 #endif
