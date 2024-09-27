@@ -1,4 +1,5 @@
 #include "utilities.h"
+#include "macros.h"
 #include "library.h"
 
 int StackCtor(struct Stack_t* stk, int amount)
@@ -47,4 +48,15 @@ StackElem StackPop(struct Stack_t* stk)
     return *( (stk->data) + (stk->size)-- );
 }
 
+
+int StackValidity(struct Stack_t* stk)
+{
+    assert( stk );
+    ASSERT( ( (stk->size) >= 0 ) && ( (stk->size) <= capacity) );
+}
+
+// int Assert()
+// {
+//
+// }
 

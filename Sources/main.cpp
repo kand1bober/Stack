@@ -1,31 +1,32 @@
 #include "library.h"
 #include "utilities.h"
 
+#define ASSERTION
+
 int main()
 {
     struct Stack_t stopka = {0};
 
+    StackAssert(&stopka);
+
     StackCtor(&stopka, 50);
 
-    printf("Hello 1\n");
+    StackAssert(&stopka);
+
 
     for (int i = 0; i < 50; i++)
     {
-        printf("Hello 2\n");
         StackPush(&stopka, i);
-        printf("Hello 3\n");
     }
 
-    // for (int i = 0; i < 50; i++)
-    // {
-    //     printf("%.0lf %d %d\n", *(stopka.data + i), stopka.size, stopka.capacity);
-    // }
+    StackAssert(&stopka);
 
     for (int i = 0; i < 50; i++)
     {
         printf("output from stack number %d : %.0lf\n", i, StackPop(&stopka) );
     }
 
+    StackAssert(&stopka);
 
     // free(stopka.data );
     StackDtor(&stopka);
