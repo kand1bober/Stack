@@ -1,8 +1,10 @@
+#include <configuration.h>
+
 #include "utilities.h"
 #include "macros.h"
 #include "library.h"
 
-int StackCtor(struct Stack_t* stk, int amount)
+int STACK_CTOR(struct Stack_t* stk, int amount)
 {
     assert( stk );
     assert( isfinite(amount) );
@@ -11,13 +13,15 @@ int StackCtor(struct Stack_t* stk, int amount)
     stk->size = (int)0;
     stk->capacity = amount;
 
+    // printf("file: %s \nfunc: %s \nline: %d\n", file, func, line);
+
     // printf("%lf %d %d\n", stk->data + stk->size, stk->size, stk->capacity);
 
     return 0;
 }
 
 
-int StackDtor(struct Stack_t* stk)
+int STACK_DTOR(struct Stack_t* stk)
 {
     assert( stk );
     assert( isfinite(stk->size) );
@@ -31,29 +35,29 @@ int StackDtor(struct Stack_t* stk)
 }
 
 
-int StackPush(struct Stack_t* stk, StackElem elem)
+int STACK_PUSH(struct Stack_t* stk, StackElem elem)
 {
-    printf("Hello 4\n");
-
     *( (stk->data) + (stk->size) ) = elem;
 
-    printf("Hello 5\n");
     (stk->size)++;
+
+    printf("file: %s \nfunc: %s \nline: %d\n", file, func, line);
+
     return 0;
 }
 
 
-StackElem StackPop(struct Stack_t* stk)
+StackElem STACK_POP(struct Stack_t* stk)
 {
     return *( (stk->data) + (stk->size)-- );
 }
 
 
-int StackValidity(struct Stack_t* stk)
-{
-    assert( stk );
-    ASSERT( ( (stk->size) >= 0 ) && ( (stk->size) <= capacity) );
-}
+// int StackValidity(struct Stack_t* stk)
+// {
+//     assert( stk );
+//     ASSERT( ( (stk->size) >= 0 ) && ( (stk->size) <= capacity) );
+// }
 
 // int Assert()
 // {
