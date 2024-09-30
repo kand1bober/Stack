@@ -1,0 +1,4 @@
+
+StackValidity имеет сомнительный вызов, можно переделать в макрос STACK_VALIDITY
+
+разбить на файлы utilities

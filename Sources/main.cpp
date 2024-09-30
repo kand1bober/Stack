@@ -10,22 +10,23 @@ int main()
     struct Stack_t stopka = {0};
 
 
-    STACK_CTOR_CALL(&stopka, 50);
+    STACK_CTOR_CALL(&stopka, 30);
 
 
-    for (int i = 0; i < stopka.capacity ; i++)
+    for (int i = 0; i < 250 ; i++)
     {
         STACK_PUSH_CALL(&stopka, (StackElem)i);
     }
 
 
-    for (int i = 0; i < stopka.capacity; i++)
+    for (int i = 0; i < 250; i++)
     {
         printf("output from stack number %d : %d\n", i, STACK_POP_CALL(&stopka));
     }
 
-    // printf("Left canareyka: %X\nRight: %X\n", *(stopka.data - 1), *(stopka.data + stopka.capacity) );
-
+    #ifdef DEBUG_STACK_FUNCS
+        printf("Left canareyka: %X\nRight: %X\n", *(stopka.data - 1), *(stopka.data + stopka.capacity) );
+    #endif
 
     STACK_DTOR_CALL(&stopka);
 
