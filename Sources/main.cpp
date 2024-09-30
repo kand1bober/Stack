@@ -9,28 +9,25 @@ int main()
 {
     struct Stack_t stopka = {0};
 
-    // StackAssert(&stopka);
 
     STACK_CTOR_CALL(&stopka, 50);
 
-    // StackAssert(&stopka);
 
-
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < stopka.capacity ; i++)
     {
-        STACK_PUSH_CALL(&stopka, i);
+        STACK_PUSH_CALL(&stopka, (StackElem)i);
     }
 
-    // StackAssert(&stopka);
 
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < stopka.capacity; i++)
     {
-        printf("output from stack number %d : %.0lf\n", i, STACK_POP_CALL(&stopka));
+        printf("output from stack number %d : %d\n", i, STACK_POP_CALL(&stopka));
     }
 
-    // StackAssert(&stopka);
+    // printf("Left canareyka: %X\nRight: %X\n", *(stopka.data - 1), *(stopka.data + stopka.capacity) );
 
-    // free(stopka.data );
+
     STACK_DTOR_CALL(&stopka);
+
     return 0;
 }
