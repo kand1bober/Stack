@@ -1,7 +1,7 @@
 #include <configuration.h>
 
 #include "library.h"
-#include "utilities.h"
+#include "functions.h"
 #include "macros.h"
 
 
@@ -10,16 +10,16 @@ int main()
     struct Stack_t stopka = {0};
 
 
-    STACK_CTOR_CALL(&stopka, 30);
+    STACK_CTOR_CALL(&stopka, 315);
 
 
-    for (int i = 0; i < 250 ; i++)
+    for (int i = 0; i < 400 ; i++)
     {
         STACK_PUSH_CALL(&stopka, (StackElem)i);
     }
 
 
-    for (int i = 0; i < 250; i++)
+    for (int i = 0; i < 400; i++)
     {
         printf("output from stack number %d : %d\n", i, STACK_POP_CALL(&stopka));
     }

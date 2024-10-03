@@ -13,42 +13,39 @@
 
 int printf(const char *, ...) __attribute__((format(printf, 1, 2)));
 
-#define DELETE_COLOR "\u001b[0m"
-#define GREEN "\u001b[32;1m"
-#define RED "\u001b[31;1m"
-#define YELLOW "\u001b[33;1m"
-#define PURPLE "\u001b[35;1m"
-#define WHITE "\u001b[37;1m"
-#define BLUE "\u001b[36;1m"
-#define SINIY "\u001b[34;1m"
-#define BLACK "\u001b[30m"
-
 typedef int StackElem;
+typedef uint64_t Canary_t;
+
+#ifdef DEBUG_STACK_FUNCS
+    const int LEFT_CANAREYKA = 0xBADDED; // =12246509
+    const int RIGHT_CANAREYKA = 0xBADF00D; // =195948557
+    const StackElem POISON = -666;
+
+    enum StackError
+    {
+        STACK_NULLPTR = 0,
+        DATA_NULL = 1,
+        STACK_UNDERFLOW = 2,
+        STACK_OVERFLOW = 3,     // = (1 << i), i=1,2,3...
+        LEFT_CANARY = 4,
+        RIGHT_CANARY = 5,
+        HASH_SUM = 6,
+    }
+#endif
 
 struct Stack_t
     {
+        Canary_t first_canary = 0xCAFEBABE; // =3405691582
+
         StackElem* data;
         int size;
         int capacity;
+
         ON_DEBUG(uint16_t error;)
-        // ON_DEBUG(uint32_t hash)
+        ON_DEBUG(uint64_t hash_1;)
+        ON_DEBUG(uint64_t hash_2;)
+
+        Canary_t second_canary = 0xDEADFA11; // =3735943697
     };
-
-#ifdef DEBUG_STACK_FUNCS
-
-const int LEFT_CANAREYKA = 0xBADDED; // =12246509
-const int RIGHT_CANAREYKA = 0xBADF00D; // =195948557
-const StackElem POISON = -666;
-
-const uint16_t error_code_0 = 1; //
-const uint16_t error_code_1 = 2; //invalid ptr to array
-const uint16_t error_code_2 = 4; //underflow
-const uint16_t error_code_3 = 8; //overflow
-const uint16_t error_code_4 = 16; //left canareyka
-const uint16_t error_code_5 = 32; //right canareyka
-const uint16_t error_code_6 = 64; //hash sum changed
-const uint16_t error_code_7 = 128; //
-
-#endif
 
 #endif
