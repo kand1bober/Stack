@@ -30,7 +30,7 @@ typedef uint64_t Canary_t;
         LEFT_CANARY = 4,
         RIGHT_CANARY = 5,
         HASH_SUM = 6,
-    }
+    };
 #endif
 
 struct Stack_t

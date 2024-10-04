@@ -1,6 +1,6 @@
 #ifndef CONFIGURATION_HEADER
 #define CONFIGURATION_HEADER
 
-#define DEBUG_STACK_FUNCS
+// #define DEBUG_STACK_FUNCS
 
 #endif

@@ -1,4 +1,5 @@
 
+
 #ifdef DEBUG_STACK_FUNCS
     /******** macro definition of additional fields(in structure and other) ********/
     #define ON_DEBUG(...) __VA_ARGS__
@@ -27,11 +28,11 @@
 
 
     //==========================================
-    #define CHECK_VALIDITY                     \
-    if (!StackValidity(stk, file, func, line)) \
-    {                                          \
-        StackDump(stk, file, func, line);      \
-    }                                          \
+    #define CHECK_VALIDITY                                           \
+    if (StackValidity(stk, __FILE__, __PRETTY_FUNCTION__, __LINE__)) \
+    {                                                                \
+        StackDump(stk, file, func, line);                            \
+    }                                                                \
     else;
     //==========================================
 
