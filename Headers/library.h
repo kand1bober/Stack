@@ -13,8 +13,10 @@
 
 int printf(const char *, ...) __attribute__((format(printf, 1, 2)));
 
+const int START_CAPACITY = 5;
+
 typedef int StackElem;
-typedef uint64_t Canary_t;
+typedef uint64_t Canary_t; // 8 bytes
 
 #ifdef DEBUG_STACK_FUNCS
     const int LEFT_CANAREYKA = 0xBADDED; // =12246509
@@ -44,6 +46,7 @@ struct Stack_t
         ON_DEBUG(uint16_t error;)
         ON_DEBUG(uint64_t hash_1;)
         ON_DEBUG(uint64_t hash_2;)
+        ON_DEBUG(int capacity_gap);
 
         Canary_t second_canary = 0xDEADFA11; // =3735943697
     };

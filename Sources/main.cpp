@@ -10,7 +10,7 @@ int main()
     struct Stack_t stopka = {0};
 
 
-    STACK_CTOR_CALL(&stopka, 10);
+    STACK_CTOR_CALL(&stopka, START_CAPACITY);
 
 
     for (int i = 0; i < 30 ; i++)
@@ -25,7 +25,7 @@ int main()
     }
 
     #ifdef DEBUG_STACK_FUNCS
-        printf("Left canareyka: %X\nRight: %X\n", *(stopka.data - 1), *(stopka.data + stopka.capacity) );
+        printf("Left canareyka: %lX\nRight: %lX\n", *(Canary_t*)((char*)stopka.data - sizeof(Canary_t) ), *(Canary_t*)( (char*)stopka.data + stopka.capacity * sizeof(StackElem) + stopka.capacity_gap) );
     #endif
 
     STACK_DTOR_CALL(&stopka);

@@ -31,7 +31,7 @@
     #define CHECK_VALIDITY                                           \
     if (StackValidity(stk, __FILE__, __PRETTY_FUNCTION__, __LINE__)) \
     {                                                                \
-        StackDump(stk, file, func, line);                            \
+        /*StackDump(stk, file, func, line); */                           \
     }                                                                \
     else;
     //==========================================

@@ -10,6 +10,7 @@
     bool StackValidity(struct Stack_t* stk, const char* file, const char* func, const int line)
     {
         bool status = 0;
+        stk->error = 0;
 
         if ( stk == NULL )
         {
@@ -17,47 +18,40 @@
         }
         if (stk->data == NULL)
         {
-            // printf("uslovie 1\n");
+            printf("uslovie 1\n");
             stk->error |= DATA_NULL;
             status = 1;
         }
         if ( stk->size < 0 )
         {
-            // printf("uslovie 2\n");
+            printf("uslovie 2\n");
             stk->error |= STACK_UNDERFLOW;
             status = 1;
         }
         if ( stk->size > stk->capacity )
         {
-            // printf("uslovie 3\n");
+            printf("uslovie 3\n");
             stk->error |= STACK_OVERFLOW    ;
             status = 1;
         }
-        if ( *(stk->data - (StackElem)1 ) != LEFT_CANAREYKA )
+        if ( *(Canary_t*)( (char*)stk->data - sizeof(Canary_t) ) != LEFT_CANAREYKA )
         {
-            // printf("uslovie 4\n");
+            printf("uslovie 4\n");
             stk->error |= LEFT_CANARY;
             status = 1;
         }
-        if ( *(stk->data + stk->capacity) != RIGHT_CANAREYKA )
+        if ( *(Canary_t*)( (char*)stk->data + stk->capacity * sizeof(StackElem) + stk->capacity_gap) != RIGHT_CANAREYKA )
         {
-            // printf("uslovie 5\n");
+            printf("uslovie 5\n");
             stk->error = stk->error | RIGHT_CANARY;
             status = 1;
         }
-        if ( stk->hash_1 != stk->hash_2 )
+        if ( stk->hash_1 != stk->hash_2 )       
         {
             stk->error |= HASH_SUM;
         }
 
-        if (status)
-            return status;
-        else
-        {
-            return 0;
-        }
-
-        return -1;
+        return status;
     }
 
 
