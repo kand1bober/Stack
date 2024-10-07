@@ -28,7 +28,7 @@ typedef uint64_t Canary_t; // 8 bytes
         STACK_NULLPTR = 0,
         DATA_NULL = 1,
         STACK_UNDERFLOW = 2,
-        STACK_OVERFLOW = 3,     // = (1 << i), i=1,2,3...
+        STACK_OVERFLOW = 3,     
         LEFT_CANARY = 4,
         RIGHT_CANARY = 5,
         HASH_SUM = 6,
@@ -43,9 +43,9 @@ struct Stack_t
         int size;
         int capacity;
 
-        ON_DEBUG(uint16_t error;)
         ON_DEBUG(uint64_t hash_1;)
         ON_DEBUG(uint64_t hash_2;)
+        ON_DEBUG(int error;)
         ON_DEBUG(int capacity_gap);
 
         Canary_t second_canary = 0xDEADFA11; // =3735943697

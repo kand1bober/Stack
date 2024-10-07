@@ -16,7 +16,7 @@ int STACK_RESIZE_DOWN(struct Stack_t* stk);
 #ifdef DEBUG_STACK_FUNCS
     bool StackValidity(struct Stack_t* stk, const char* file, const char* func, const int line);
     void StackDump(struct Stack_t* stk, const char* file, const char* func, const int line);
-    void BinaryOutput(uint16_t number);
+    void BinaryOutput(int number);
 #endif
 
 

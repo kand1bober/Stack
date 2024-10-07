@@ -1,7 +1,7 @@
-
+#include "decoration.h"
 
 #ifdef DEBUG_STACK_FUNCS
-    /******** macro definition of additional fields(in structure and other) ********/
+    //================ macro definition of additional fields(in structure and other) ===================
     #define ON_DEBUG(...) __VA_ARGS__
 
 
@@ -27,14 +27,28 @@
     //===================================================
 
 
-    //==========================================
+    //============= Validity of stack =============================
     #define CHECK_VALIDITY                                           \
     if (StackValidity(stk, __FILE__, __PRETTY_FUNCTION__, __LINE__)) \
     {                                                                \
-        /*StackDump(stk, file, func, line); */                           \
+        StackDump(stk, file, func, line);                            \
     }                                                                \
     else;
-    //==========================================
+    //=============================================================
+
+
+    //============ Additional printf's in debug mode==============================
+    #ifdef PRINT_PROCESS
+
+        #define PRINT_DEBUG(expr) expr
+
+    #else
+
+        #define PRINT_DEBUG(expr)
+
+    #endif
+    // ==================================================================
+
 
 #else
     //======== macro definition of additional fields(in structure and other)
@@ -62,8 +76,22 @@
     //=====================================================
 
 
-    //==========================================
+    //=========== Validity of stack ============
     #define CHECK_VALIDITY
     //==========================================
 
+
+    //============ Additional printf's in debug mode=====
+    #ifdef PRINT_PROCESS
+
+        #define PRINT_DEBUG(expr)
+
+    #else
+
+        #define PRINT_DEBUG(expr)
+
+    #endif
+    //===================================================
+
 #endif
+

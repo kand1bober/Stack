@@ -1,4 +1,4 @@
-#include <configuration.h>
+#include "configuration.h"
 
 #include "library.h"
 #include "functions.h"
@@ -9,15 +9,12 @@ int main()
 {
     struct Stack_t stopka = {0};
 
-
     STACK_CTOR_CALL(&stopka, START_CAPACITY);
-
 
     for (int i = 0; i < 30 ; i++)
     {
         STACK_PUSH_CALL(&stopka, (StackElem)i);
     }
-
 
     for (int i = 0; i < 30; i++)
     {
