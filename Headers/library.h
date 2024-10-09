@@ -11,16 +11,14 @@
 
 #define SHIT_HEADER
 
-int printf(const char *, ...) __attribute__((format(printf, 1, 2)));
-
 const int START_CAPACITY = 5;
 
 typedef int StackElem;
 typedef uint64_t Canary_t; // 8 bytes
 
 #ifdef DEBUG_STACK_FUNCS
-    const int LEFT_CANAREYKA = 0xBADDED; // =12246509
-    const int RIGHT_CANAREYKA = 0xBADF00D; // =195948557
+    const uint32_t LEFT_CANAREYKA = 0xBADDED; // =12246509
+    const uint32_t RIGHT_CANAREYKA = 0xBADF00D; // =195948557
     const StackElem POISON = -666;
 
     enum StackError
@@ -28,7 +26,7 @@ typedef uint64_t Canary_t; // 8 bytes
         STACK_NULLPTR = 0,
         DATA_NULL = 1,
         STACK_UNDERFLOW = 2,
-        STACK_OVERFLOW = 3,     
+        STACK_OVERFLOW = 3,
         LEFT_CANARY = 4,
         RIGHT_CANARY = 5,
         HASH_SUM = 6,

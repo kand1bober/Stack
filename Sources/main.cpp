@@ -22,7 +22,7 @@ int main()
     }
 
     #ifdef DEBUG_STACK_FUNCS
-        printf("Left canareyka: %lX\nRight: %lX\n", *(Canary_t*)((char*)stopka.data - sizeof(Canary_t) ), *(Canary_t*)( (char*)stopka.data + stopka.capacity * sizeof(StackElem) + stopka.capacity_gap) );
+        printf("Left canareyka: %lX\nRight: %lX\n", *(Canary_t*)((char*)stopka.data - sizeof(Canary_t) ), *(Canary_t*)( (char*)stopka.data + (size_t)stopka.capacity * sizeof(StackElem) + stopka.capacity_gap) );
     #endif
 
     STACK_DTOR_CALL(&stopka);

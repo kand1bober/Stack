@@ -28,12 +28,15 @@
 
 
     //============= Validity of stack =============================
-    #define CHECK_VALIDITY                                           \
+    #define CHECK_VALIDITY(stk)                                      \
     if (StackValidity(stk, __FILE__, __PRETTY_FUNCTION__, __LINE__)) \
     {                                                                \
         StackDump(stk, file, func, line);                            \
     }                                                                \
-    else;
+    else                                                              \
+    {                                                                  \
+                                                                        \
+    }
     //=============================================================
 
 
@@ -77,14 +80,14 @@
 
 
     //=========== Validity of stack ============
-    #define CHECK_VALIDITY
+    #define CHECK_VALIDITY(stk)
     //==========================================
 
 
     //============ Additional printf's in debug mode=====
     #ifdef PRINT_PROCESS
 
-        #define PRINT_DEBUG(expr)
+        #define PRINT_DEBUG(expr) expr
 
     #else
 

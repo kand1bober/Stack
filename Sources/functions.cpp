@@ -4,22 +4,23 @@
 #include "macros.h"
 #include "library.h"
 
-int STACK_CTOR(struct Stack_t* stk, int amount)
+int STACK_CTOR(struct Stack_t* stk, unsigned int amount)
 {
+    //InputValidity
     size_t kolvo = amount * sizeof(StackElem) ON_DEBUG(+ 2 * sizeof(Canary_t)) ON_DEBUG(+ 8 - (amount * sizeof(StackElem)) % 8 );
-    PRINT_DEBUG( printf("kolvo in bytes: %ld\n", kolvo); )
+    PRINT_DEBUG( printf("kolvo in bytes: %lu\n", kolvo); )
 
     #ifdef DEBUG_STACK_FUNCS
-        stk->capacity_gap = ( 8 - (amount * sizeof(StackElem)) % 8 );
+        stk->capacity_gap = ( 8 - ((size_t)amount * sizeof(StackElem)) % 8 );
     #endif
 
     (stk->data) = (StackElem*)( (char*)calloc(kolvo, sizeof(char)) ON_DEBUG(+ sizeof(Canary_t) ) );
 
 
     stk->size = 0;
-    stk->capacity = amount;
+    stk->capacity = (int)amount;
 
-    PRINT_DEBUG( printf("Ctor: amount: %d, stk->data - sizeof(Cnary_t): %p, kolvo: %ld, stk->data + kolvo - sizeof(canary): %p \n", amount, (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ), kolvo, (char*)stk->data + kolvo ON_DEBUG(- sizeof(Canary_t) ) ); )
+    PRINT_DEBUG( printf("Ctor: amount: %u, stk->data - sizeof(Cnary_t): %p, kolvo: %lu, stk->data + kolvo - sizeof(canary): %p \n", amount, (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ), kolvo, (char*)stk->data + kolvo ON_DEBUG(- sizeof(Canary_t) ) ); )
 
     #ifdef DEBUG_STACK_FUNCS
         *(Canary_t *)( (char*)stk->data - sizeof(Canary_t) ) = LEFT_CANAREYKA; //creating canareyka's
@@ -77,15 +78,15 @@ int STACK_RESIZE_UP(struct Stack_t* stk)
 
     if ( stk->size >= ( stk->capacity - 1) )
     {
-        size_t kolvo = ( 2* stk->capacity * sizeof(StackElem) ON_DEBUG(+ 2 * sizeof(Canary_t)) ON_DEBUG(+ 8 - ( 2 * stk->capacity * sizeof(StackElem) ) % 8 ) );
+        size_t kolvo = ( 2* (size_t)stk->capacity * sizeof(StackElem) ON_DEBUG(+ 2 * sizeof(Canary_t)) ON_DEBUG(+ 8 - ( 2 * (size_t)stk->capacity * sizeof(StackElem) ) % 8 ) );
 
         #ifdef DEBUG_STACK_FUNCS
-            stk->capacity_gap = ( 8 - ( 2 * stk->capacity * sizeof(StackElem) ) % 8 );
+            stk->capacity_gap = ( 8 - ( 2 * (size_t)stk->capacity * sizeof(StackElem) ) % 8 );
         #endif
 
         stk->data = (StackElem*)( (char*)realloc( (void*)( (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ) ), kolvo )  ON_DEBUG(+ sizeof(Canary_t) ) );
 
-        PRINT_DEBUG( printf("Resize_up: 2 * stk->capacity: %d, (char*)stk->data - sizeof(Canary_t): %p, kolvo: %ld, stk->data + kolvo - sizeof(canary): %p \n", 2*stk->capacity, (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ), kolvo, (char*)stk->data + kolvo ON_DEBUG(- sizeof(Canary_t) ) ); )
+        PRINT_DEBUG( printf("Resize_up: 2 * stk->capacity: %d, (char*)stk->data - sizeof(Canary_t): %p, kolvo: %lu, stk->data + kolvo - sizeof(canary): %p \n", 2 * stk->capacity, (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ), kolvo, (char*)stk->data + kolvo ON_DEBUG(- sizeof(Canary_t) ) ); )
 
 
         // CHECK_VALIDITY(stk);
@@ -111,7 +112,7 @@ int STACK_RESIZE_UP(struct Stack_t* stk)
     else
     {
         return 0;
-    }   
+    }
 
     return -1;
 }
@@ -123,15 +124,15 @@ int STACK_RESIZE_DOWN(struct Stack_t* stk)
 
     if ( (stk->size <= (stk->capacity / 4))  && (stk->capacity > START_CAPACITY) )
     {
-        size_t kolvo = ( (( stk->capacity * sizeof(StackElem)) / 2)  ON_DEBUG(+ 2 * sizeof(Canary_t))  ON_DEBUG(+ 8 - (stk->capacity / 2) % 8 ) );
+        size_t kolvo = ( (( (size_t)stk->capacity * sizeof(StackElem)) / 2)  ON_DEBUG(+ 2 * sizeof(Canary_t))  ON_DEBUG(+ 8 - ((size_t)stk->capacity / 2) % 8 ) );
 
         #ifdef DEBUG_STACK_FUNCS
-            stk->capacity_gap = ( 8 - (stk->capacity / 2) % 8 );
+            stk->capacity_gap = ( 8 - ((size_t)stk->capacity / 2) % 8 );
         #endif
 
         stk->data = (StackElem*)( (char*)realloc( (void*)( (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ) ), kolvo) ON_DEBUG(+ sizeof(Canary_t) ) );
 
-        PRINT_DEBUG( printf("Resize_down: stk->capacity/2: %d, (char*)stk->data - sizeof(Canary_t): %p, kolvo: %ld, stk->data + kolvo - sizeof(canary): %p \n", stk->capacity / 2, (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ), kolvo, (char*)stk->data + kolvo ON_DEBUG(- sizeof(Canary_t) ) ); )
+        PRINT_DEBUG( printf("Resize_down: stk->capacity/2: %d, (char*)stk->data - sizeof(Canary_t): %p, kolvo: %lu, stk->data + kolvo - sizeof(canary): %p \n", stk->capacity / 2, (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ), kolvo, (char*)stk->data + kolvo ON_DEBUG(- sizeof(Canary_t) ) ); )
 
         if ( stk )
         {

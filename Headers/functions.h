@@ -6,7 +6,7 @@
 #ifndef UTILITIES_HEADER
 #define UTILITIES_HEADER
 
-int STACK_CTOR(struct Stack_t* stk, int amount);
+int STACK_CTOR(struct Stack_t* stk, unsigned int amount);
 int STACK_DTOR(struct Stack_t* stk);
 int STACK_PUSH(struct Stack_t* stk, StackElem elem);
 StackElem STACK_POP(struct Stack_t* stk);
