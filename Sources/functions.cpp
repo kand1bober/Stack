@@ -7,15 +7,17 @@
 int STACK_CTOR(struct Stack_t* stk, unsigned int amount)
 {
     //InputValidity
-    size_t kolvo = amount * sizeof(StackElem) ON_DEBUG(+ 2 * sizeof(Canary_t)) ON_DEBUG(+ 8 - (amount * sizeof(StackElem)) % 8 );
+
+    size_t razmer = (( amount * sizeof(StackElem)))  ON_DEBUG(+ 2 * sizeof(Canary_t));
+
+    size_t kolvo = razmer ON_DEBUG(+ 8 - razmer % 8 );
     PRINT_DEBUG( printf("kolvo in bytes: %lu\n", kolvo); )
 
     #ifdef DEBUG_STACK_FUNCS
-        stk->capacity_gap = ( 8 - ((size_t)amount * sizeof(StackElem)) % 8 );
+        stk->capacity_gap = ( 8 - razmer % 8 );
     #endif
 
     (stk->data) = (StackElem*)( (char*)calloc(kolvo, sizeof(char)) ON_DEBUG(+ sizeof(Canary_t) ) );
-
 
     stk->size = 0;
     stk->capacity = (int)amount;
@@ -76,12 +78,14 @@ int STACK_RESIZE_UP(struct Stack_t* stk)
 {
     CHECK_VALIDITY(stk);
 
+    size_t razmer = (( stk->capacity * sizeof(StackElem)) * 2)  ON_DEBUG(+ 2 * sizeof(Canary_t));
+
     if ( stk->size >= ( stk->capacity - 1) )
     {
-        size_t kolvo = ( 2* (size_t)stk->capacity * sizeof(StackElem) ON_DEBUG(+ 2 * sizeof(Canary_t)) ON_DEBUG(+ 8 - ( 2 * (size_t)stk->capacity * sizeof(StackElem) ) % 8 ) );
+        size_t kolvo = ( razmer ON_DEBUG(+ 8 - razmer % 8 ) );
 
         #ifdef DEBUG_STACK_FUNCS
-            stk->capacity_gap = ( 8 - ( 2 * (size_t)stk->capacity * sizeof(StackElem) ) % 8 );
+            stk->capacity_gap = ( 8 - razmer % 8 );
         #endif
 
         stk->data = (StackElem*)( (char*)realloc( (void*)( (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ) ), kolvo )  ON_DEBUG(+ sizeof(Canary_t) ) );
@@ -110,9 +114,8 @@ int STACK_RESIZE_UP(struct Stack_t* stk)
             return 1;
     }
     else
-    {
         return 0;
-    }
+
 
     return -1;
 }
@@ -122,12 +125,14 @@ int STACK_RESIZE_DOWN(struct Stack_t* stk)
 {
     CHECK_VALIDITY(stk);
 
+    size_t razmer = (( stk->capacity * sizeof(StackElem)) / 2)  ON_DEBUG(+ 2 * sizeof(Canary_t));
+
     if ( (stk->size <= (stk->capacity / 4))  && (stk->capacity > START_CAPACITY) )
     {
-        size_t kolvo = ( (( (size_t)stk->capacity * sizeof(StackElem)) / 2)  ON_DEBUG(+ 2 * sizeof(Canary_t))  ON_DEBUG(+ 8 - ((size_t)stk->capacity / 2) % 8 ) );
+        size_t kolvo = ( razmer ON_DEBUG(+ 8 - razmer % 8 ) );
 
         #ifdef DEBUG_STACK_FUNCS
-            stk->capacity_gap = ( 8 - ((size_t)stk->capacity / 2) % 8 );
+            stk->capacity_gap = ( 8 - razmer % 8 );
         #endif
 
         stk->data = (StackElem*)( (char*)realloc( (void*)( (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ) ), kolvo) ON_DEBUG(+ sizeof(Canary_t) ) );

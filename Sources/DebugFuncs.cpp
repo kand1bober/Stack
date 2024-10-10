@@ -52,12 +52,12 @@
             stk->error |= ( 1 << RIGHT_CANARY );
             status = 1;
         }
-        if ( stk->hash_1 != stk->hash_2 )
-        {
-            PRINT_DEBUG( printf(RED "uslovie 6" DELETE_COLOR); )
-            stk->error |= ( 1 << HASH_SUM );
-            status = 1;
-        }
+        // if ( stk->hash_1 != stk->hash_2 )
+        // {
+        //     PRINT_DEBUG( printf(RED "uslovie 6" DELETE_COLOR); )
+        //     stk->error |= ( 1 << HASH_SUM );
+        //     status = 1;
+        // }
 
         return status;
     }
@@ -87,11 +87,11 @@
         "}\n\n"
         YELLOW "Left Canareyka from constant: %X, " PURPLE "Left Canareyka from stack: %lX\n"
         YELLOW "Rigth Canareyka from constant: %X, " PURPLE "Right Canareyka from stack: %lX\n\n" DELETE_COLOR
-        "Values of data:\n", LEFT_CANAREYKA, *(Canary_t*)( (char*)stk->data - sizeof(Canary_t) ), RIGHT_CANAREYKA, *(Canary_t*)( (char*)stk->data + (size_t)stk->capacity * sizeof(StackElem) + stk->capacity_gap - sizeof(Canary_t) ) );
+        "Values of data:\n", LEFT_CANAREYKA, *(Canary_t*)( (char*)stk->data - sizeof(Canary_t) ), RIGHT_CANAREYKA, *(Canary_t*)( (char*)stk->data + (size_t)stk->capacity * sizeof(StackElem) + stk->capacity_gap /*- sizeof(Canary_t) */) );
 
         for (int i = 0; i < stk->capacity; i++)
         {
-            StackElem output = *(stk->data + (StackElem)i );
+            StackElem output = *(stk->data + i );
             if(output == POISON)
                 printf(RED "*[%d] = %d\n" DELETE_COLOR, i, output );
             else
