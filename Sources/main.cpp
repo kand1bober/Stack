@@ -16,10 +16,12 @@ int main()
         STACK_PUSH_CALL(&stopka, (StackElem)i);
     }
 
+
     for (int i = 0; i < 11; i++)
     {
         printf("output from stack number %d : %d\n", i, STACK_POP_CALL(&stopka));
     }
+    STACK_POP_CALL(&stopka);
 
     // #ifdef DEBUG_STACK_FUNCS
     //     printf("Left canareyka: %lX\nRight: %lX\n", *(Canary_t*)((char*)stopka.data - sizeof(Canary_t) ), *(Canary_t*)( (char*)stopka.data + (size_t)stopka.capacity * sizeof(StackElem) + stopka.capacity_gap) );

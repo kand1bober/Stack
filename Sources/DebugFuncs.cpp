@@ -74,8 +74,8 @@
         "    int capacity: %d\n"
         "    ON_DEBUG(int error): ", func, file, line, stk, stk->data, stk->size, stk->capacity);
         BinaryOutput(stk->error);
-        printf("\n                                         ........|||||||||\n"
-        "                                                 " WHITE "8" BLACK "7" WHITE "6" PURPLE "5" SINIY "4" BLUE "3" GREEN "2" YELLOW "1" RED "0" DELETE_COLOR "\n"
+        printf("\n                                        ........|||||||||\n"
+        "                                                " WHITE "8" BLACK "7" WHITE "6" PURPLE "5" SINIY "4" BLUE "3" GREEN "2" YELLOW "1" RED "0" DELETE_COLOR "\n"
         RED "0 -- pointer to stack is NULL\n"
         YELLOW "1 -- invalid pointer to array\n"
         GREEN "2 -- underflow\n"
@@ -89,12 +89,12 @@
         YELLOW "Rigth Canareyka from constant: %X, " PURPLE "Right Canareyka from stack: %lX\n\n" DELETE_COLOR
         "Values of data:\n", LEFT_CANAREYKA, *(Canary_t*)( (char*)stk->data - sizeof(Canary_t) ), RIGHT_CANAREYKA, *(Canary_t*)( (char*)stk->data + (size_t)stk->capacity * sizeof(StackElem) + stk->capacity_gap /*- sizeof(Canary_t) */) );
 
-        for (int i = 0; i < stk->capacity; i++)
+        for (int i = 0; i < stk->size; i++)
         {
             StackElem output = *(stk->data + i );
-            if(output == POISON)
-                printf(RED "*[%d] = %d\n" DELETE_COLOR, i, output );
-            else
+            // if(output == POISON)
+            //     printf(RED "*[%d] = %d\n" DELETE_COLOR, i, output );
+            // else
                 printf("*[%d] = %d\n", i, output );
         }
         printf("\n");

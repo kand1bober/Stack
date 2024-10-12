@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "macros.h"
 #include "configuration.h"
@@ -15,11 +16,11 @@ const int START_CAPACITY = 5;
 
 typedef int StackElem;
 typedef uint64_t Canary_t; // 8 bytes
+const unsigned char POISON = 0;
 
 #ifdef DEBUG_STACK_FUNCS
     const uint32_t LEFT_CANAREYKA = 0xBADDED; // =12246509
     const uint32_t RIGHT_CANAREYKA = 0xBADF00D; // =195948557
-    const StackElem POISON = -666;
 
     enum StackError
     {

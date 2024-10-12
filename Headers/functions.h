@@ -1,4 +1,4 @@
-#include <configuration.h>
+#include "configuration.h"
 
 #include "library.h"
 #include "macros.h"
@@ -12,6 +12,8 @@ int STACK_PUSH(struct Stack_t* stk, StackElem elem);
 StackElem STACK_POP(struct Stack_t* stk);
 int STACK_RESIZE_UP(struct Stack_t* stk);
 int STACK_RESIZE_DOWN(struct Stack_t* stk);
+
+bool fill_poison(struct Stack_t* stk);
 
 #ifdef DEBUG_STACK_FUNCS
     bool StackValidity(struct Stack_t* stk, const char* file, const char* func, const int line);
