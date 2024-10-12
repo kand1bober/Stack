@@ -57,8 +57,6 @@ int STACK_PUSH(struct Stack_t* stk, StackElem elem)
     *( (stk->data) + (stk->size) ) = elem;
     (stk->size)++;
 
-    StackDump(stk, __FILE__, __PRETTY_FUNCTION__, __LINE__);
-
     CHECK_VALIDITY(stk);
 
     return 0;
@@ -76,8 +74,6 @@ StackElem STACK_POP(struct Stack_t* stk)
     if ( stk->size > 0 )
     {
         StackElem output = *( (stk->data ) + ((stk->size)--) - 1);
-
-        *( (stk->data ) + (stk->size) ) = POISON;
 
         return output;
     }
@@ -103,8 +99,6 @@ int STACK_RESIZE_UP(struct Stack_t* stk)
         #endif
 
         stk->data = (StackElem*)( (char*)realloc( (void*)( (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ) ), kolvo )  ON_DEBUG(+ sizeof(Canary_t) ) );
-
-        fill_poison(stk);
 
         PRINT_DEBUG( printf("Resize_up: 2 * stk->capacity: %d, (char*)stk->data - sizeof(Canary_t): %p, kolvo: %lu, stk->data + kolvo - sizeof(canary): %p \n", 2 * stk->capacity, (char*)stk->data ON_DEBUG(- sizeof(Canary_t) ), kolvo, (char*)stk->data + kolvo ON_DEBUG(- sizeof(Canary_t) ) ); )
 
@@ -175,24 +169,5 @@ int STACK_RESIZE_DOWN(struct Stack_t* stk)
         return 0;
 
     return -1;
-}
-
-
-bool fill_poison(struct Stack_t* stk)
-{
-    // bool status = 0;
-
-    size_t to_fill = (stk->capacity - stk->size);
-
-    char* dest = (char*)stk->data + sizeof(StackElem) * stk->size; 
-
-    // size_t count = sizeof(to_fill) / sizeof( POISON );
-
-    void* pointer =  memset( (void*)(dest), POISON, to_fill );
-
-    if( pointer )
-        return 0;
-    else    
-        return 1;
 }
 
