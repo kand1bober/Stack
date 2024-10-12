@@ -80,7 +80,7 @@ StackElem STACK_POP(struct Stack_t* stk)
     else
     {
         printf("Cannot pop value, nothing in th stack");
-        return 0;
+        return -1;
     }
 }
 
