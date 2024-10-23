@@ -14,7 +14,7 @@
 
 const int START_CAPACITY = 5;
 
-typedef int StackElem;
+typedef double StackElem;
 typedef uint64_t Canary_t; // 8 bytes
 const unsigned char POISON = 0;
 

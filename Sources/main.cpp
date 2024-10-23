@@ -19,7 +19,7 @@ int main()
 
     for (int i = 0; i < 11; i++)
     {
-        printf("output from stack number %d : %d\n", i, STACK_POP_CALL(&stopka));
+        printf("output from stack number %d : %lf\n", i, STACK_POP_CALL(&stopka));
     }
     STACK_POP_CALL(&stopka);
 
